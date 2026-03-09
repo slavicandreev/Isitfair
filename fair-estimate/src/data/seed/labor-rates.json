@@ -1,0 +1,18 @@
+[
+  { "service_type": "auto_repair", "state": "CA", "metro_area": "Los Angeles", "zip_prefix": "900", "avg_hourly_rate": 165, "low_hourly_rate": 120, "high_hourly_rate": 220, "source": "bls_estimate", "sample_size": 50 },
+  { "service_type": "auto_repair", "state": "CA", "metro_area": "San Francisco", "zip_prefix": "941", "avg_hourly_rate": 175, "low_hourly_rate": 130, "high_hourly_rate": 240, "source": "bls_estimate", "sample_size": 50 },
+  { "service_type": "auto_repair", "state": "TX", "metro_area": "Dallas", "zip_prefix": "750", "avg_hourly_rate": 130, "low_hourly_rate": 90, "high_hourly_rate": 175, "source": "bls_estimate", "sample_size": 50 },
+  { "service_type": "auto_repair", "state": "TX", "metro_area": "Houston", "zip_prefix": "770", "avg_hourly_rate": 125, "low_hourly_rate": 85, "high_hourly_rate": 170, "source": "bls_estimate", "sample_size": 50 },
+  { "service_type": "auto_repair", "state": "NY", "metro_area": "New York City", "zip_prefix": "100", "avg_hourly_rate": 160, "low_hourly_rate": 120, "high_hourly_rate": 220, "source": "bls_estimate", "sample_size": 50 },
+  { "service_type": "auto_repair", "state": "FL", "metro_area": "Miami", "zip_prefix": "331", "avg_hourly_rate": 130, "low_hourly_rate": 90, "high_hourly_rate": 175, "source": "bls_estimate", "sample_size": 50 },
+  { "service_type": "auto_repair", "state": "IL", "metro_area": "Chicago", "zip_prefix": "606", "avg_hourly_rate": 145, "low_hourly_rate": 105, "high_hourly_rate": 195, "source": "bls_estimate", "sample_size": 50 },
+  { "service_type": "auto_repair", "state": "WA", "metro_area": "Seattle", "zip_prefix": "981", "avg_hourly_rate": 155, "low_hourly_rate": 115, "high_hourly_rate": 210, "source": "bls_estimate", "sample_size": 50 },
+  { "service_type": "auto_repair", "state": "AZ", "metro_area": "Phoenix", "zip_prefix": "850", "avg_hourly_rate": 115, "low_hourly_rate": 80, "high_hourly_rate": 160, "source": "bls_estimate", "sample_size": 50 },
+  { "service_type": "auto_repair", "state": "GA", "metro_area": "Atlanta", "zip_prefix": "303", "avg_hourly_rate": 120, "low_hourly_rate": 85, "high_hourly_rate": 165, "source": "bls_estimate", "sample_size": 50 },
+  { "service_type": "hvac", "state": "TX", "metro_area": "Dallas", "zip_prefix": "750", "avg_hourly_rate": 120, "low_hourly_rate": 85, "high_hourly_rate": 165, "source": "bls_estimate", "sample_size": 30 },
+  { "service_type": "hvac", "state": "CA", "metro_area": "Los Angeles", "zip_prefix": "900", "avg_hourly_rate": 150, "low_hourly_rate": 110, "high_hourly_rate": 200, "source": "bls_estimate", "sample_size": 30 },
+  { "service_type": "plumbing", "state": "TX", "metro_area": "Dallas", "zip_prefix": "750", "avg_hourly_rate": 130, "low_hourly_rate": 95, "high_hourly_rate": 175, "source": "bls_estimate", "sample_size": 30 },
+  { "service_type": "plumbing", "state": "CA", "metro_area": "Los Angeles", "zip_prefix": "900", "avg_hourly_rate": 165, "low_hourly_rate": 120, "high_hourly_rate": 220, "source": "bls_estimate", "sample_size": 30 },
+  { "service_type": "electrical", "state": "TX", "metro_area": "Dallas", "zip_prefix": "750", "avg_hourly_rate": 120, "low_hourly_rate": 85, "high_hourly_rate": 165, "source": "bls_estimate", "sample_size": 30 },
+  { "service_type": "electrical", "state": "CA", "metro_area": "Los Angeles", "zip_prefix": "900", "avg_hourly_rate": 155, "low_hourly_rate": 115, "high_hourly_rate": 210, "source": "bls_estimate", "sample_size": 30 }
+]

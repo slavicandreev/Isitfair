@@ -1,0 +1,98 @@
+[
+  {
+    "service_type": "hvac",
+    "normalized_service_name": "uv_light_installation",
+    "upsell_type": "conditional",
+    "primary_service_context": ["ac_install", "ac_repair", "hvac_tune_up"],
+    "equipment_age_threshold": 5,
+    "reason_template": "UV lights are an add-on that most homeowners don't need with a standard AC install. They add significant cost with marginal air quality benefit for typical households.",
+    "when_actually_needed": "If household members have severe allergies, respiratory conditions, or if you have documented mold issues in the ductwork.",
+    "typical_shop_charge": 500,
+    "estimated_fair_value": 300,
+    "upsell_confidence": 0.75
+  },
+  {
+    "service_type": "hvac",
+    "normalized_service_name": "duct_cleaning",
+    "upsell_type": "conditional",
+    "primary_service_context": ["ac_service", "furnace_service", "hvac_tune_up", "ac_install"],
+    "equipment_age_threshold": 10,
+    "reason_template": "Duct cleaning is frequently upsold with every HVAC service call but EPA states it should only be done if ducts are actually contaminated.",
+    "when_actually_needed": "If you see visible mold growth, pest infestation evidence, or excessive debris causing restricted airflow.",
+    "typical_shop_charge": 400,
+    "estimated_fair_value": 250,
+    "upsell_confidence": 0.8
+  },
+  {
+    "service_type": "plumbing",
+    "normalized_service_name": "water_softener_installation",
+    "upsell_type": "conditional",
+    "primary_service_context": ["water_heater_repair", "pipe_repair", "faucet_replacement"],
+    "equipment_age_threshold": 0,
+    "reason_template": "Water softeners are frequently pitched during basic plumbing repairs. They're only beneficial if your water hardness level is actually high.",
+    "when_actually_needed": "If you have a water hardness test showing hard water (>7 grains per gallon) and are experiencing scale buildup on fixtures.",
+    "typical_shop_charge": 1500,
+    "estimated_fair_value": 800,
+    "upsell_confidence": 0.7
+  },
+  {
+    "service_type": "electrical",
+    "normalized_service_name": "whole_home_surge_protector",
+    "upsell_type": "conditional",
+    "primary_service_context": ["outlet_repair", "gfci_installation", "electrical_inspection"],
+    "equipment_age_threshold": 0,
+    "reason_template": "Whole-home surge protectors are often added to single outlet repairs. They're a useful product but shouldn't be impulse-purchased during an unrelated service call.",
+    "when_actually_needed": "If you live in an area with frequent lightning strikes, have expensive electronics, or have sensitive medical equipment.",
+    "typical_shop_charge": 350,
+    "estimated_fair_value": 200,
+    "upsell_confidence": 0.65
+  },
+  {
+    "service_type": "hvac",
+    "normalized_service_name": "annual_maintenance_plan",
+    "upsell_type": "conditional",
+    "primary_service_context": ["ac_repair", "furnace_repair", "hvac_service"],
+    "equipment_age_threshold": 0,
+    "reason_template": "Annual maintenance plans are commonly sold at point of one-time repair. They can provide value but should be evaluated separately, not under pressure during a repair visit.",
+    "when_actually_needed": "Maintenance plans can be worth it for aging equipment nearing end of life or if you prefer predictable costs. Compare against annual tune-up cost first.",
+    "typical_shop_charge": 300,
+    "estimated_fair_value": 200,
+    "upsell_confidence": 0.6
+  },
+  {
+    "service_type": "hvac",
+    "normalized_service_name": "condensate_treatment",
+    "upsell_type": "likely_upsell",
+    "primary_service_context": ["ac_tune_up", "ac_service", "ac_repair"],
+    "equipment_age_threshold": 0,
+    "reason_template": "Condensate line treatment packages are rarely necessary and often a simple pour-in tablet that costs pennies is sold at a significant markup.",
+    "when_actually_needed": "Only if you've had repeated condensate line clogs. Can DIY with a $1 algae tablet from hardware store.",
+    "typical_shop_charge": 80,
+    "estimated_fair_value": 5,
+    "upsell_confidence": 0.85
+  },
+  {
+    "service_type": "hvac",
+    "normalized_service_name": "ductwork_modification",
+    "upsell_type": "conditional",
+    "primary_service_context": ["equipment_replacement", "ac_install", "furnace_install"],
+    "equipment_age_threshold": 15,
+    "reason_template": "Ductwork modifications during equipment replacement are sometimes necessary but frequently oversold. Get a second opinion if modifications are recommended on relatively new ductwork.",
+    "when_actually_needed": "If ductwork is undersized for new equipment, has major leaks (>25% loss), or is damaged/deteriorated after 20+ years.",
+    "typical_shop_charge": 1200,
+    "estimated_fair_value": 600,
+    "upsell_confidence": 0.65
+  },
+  {
+    "service_type": "hvac",
+    "normalized_service_name": "air_purifier_installation",
+    "upsell_type": "conditional",
+    "primary_service_context": ["ac_install", "ac_repair", "hvac_service"],
+    "equipment_age_threshold": 5,
+    "reason_template": "Whole-home air purifiers are often added to standard AC installs. They provide air quality benefits but are frequently priced at a significant premium and may not be needed for average households.",
+    "when_actually_needed": "If household members have severe allergies, asthma, or if you live in an area with high pollution or frequent wildfire smoke.",
+    "typical_shop_charge": 800,
+    "estimated_fair_value": 400,
+    "upsell_confidence": 0.7
+  }
+]
