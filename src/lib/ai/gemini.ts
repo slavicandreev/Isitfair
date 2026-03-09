@@ -51,7 +51,7 @@ export async function extractWithGemini(
   quoteId: string = 'unknown'
 ): Promise<QuoteExtraction> {
   const startTime = Date.now();
-  const model = getGenAI().getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
+  const model = getGenAI().getGenerativeModel({ model: 'gemini-2.0-flash' });
 
   const prompt = serviceTypeHint && serviceTypeHint !== 'other'
     ? `${EXTRACTION_SYSTEM_PROMPT}\n\nNote: The user has indicated this is a ${serviceTypeHint.replace('_', ' ')} quote.`
@@ -92,7 +92,7 @@ export async function extractWithGemini(
     warranty_info: parsed.warranty_info || null,
     confidence_notes: parsed.confidence_notes || [],
     confidence_score,
-    model_used: 'gemini-2.0-flash-exp',
+    model_used: 'gemini-2.0-flash',
   };
 
   // Log AI call
@@ -101,7 +101,7 @@ export async function extractWithGemini(
   const outputTokens = usageMetadata?.candidatesTokenCount || 200;
 
   await logAICall({
-    model: 'gemini-2.0-flash-exp',
+    model: 'gemini-2.0-flash',
     provider: 'gemini',
     input_tokens: inputTokens,
     output_tokens: outputTokens,
