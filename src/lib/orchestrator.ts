@@ -261,7 +261,7 @@ function assembleResult(input: AssembleInput): AnalysisResult {
       items_unmatched: unmatchedItems,
       processing_time_ms: processingTimeMs,
       vision_model_used: extraction.model_used,
-      fallback_triggered: extraction.model_used !== 'gemini-2.0-flash-exp',
+      fallback_triggered: extraction.model_used !== 'gemini-2.0-flash',
     },
   };
 }

@@ -11,7 +11,7 @@ export async function extractQuote(
   try {
     const geminiResult = await extractWithGemini(image, serviceTypeHint, quoteId);
     if (geminiResult.confidence_score >= 0.7 && geminiResult.line_items.length > 0) {
-      return { ...geminiResult, model_used: 'gemini-2.0-flash-exp' };
+      return { ...geminiResult, model_used: 'gemini-2.0-flash' };
     }
     console.log('Gemini confidence too low, falling back to Claude Haiku');
   } catch (error) {
