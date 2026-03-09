@@ -4,6 +4,8 @@ import { supabaseAdmin } from '@/lib/supabase';
 import { ServiceType } from '@/types';
 import sharp from 'sharp';
 
+export const maxDuration = 30;
+
 // In-memory rate limit store
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 const RATE_LIMIT = 10;
