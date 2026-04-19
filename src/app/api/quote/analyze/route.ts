@@ -170,9 +170,16 @@ export async function POST(request: NextRequest) {
         await supabaseAdmin.from('quote_items').insert(lineItems);
       }
 
-      // Store price reports (data flywheel)
+      // Store price reports (data flywheel) — with outlier rejection
+      // Reject prices >3x or <20% of the benchmark average to prevent skewing
       const priceReports = result.line_item_analyses
-        .filter((la) => la.price_benchmark.data_confidence !== 'low')
+        .filter((la) => {
+          if (la.price_benchmark.data_confidence === 'low') return false;
+          const avg = la.price_benchmark.regional_average;
+          if (avg <= 0) return false;
+          const ratio = la.price_benchmark.quoted_price / avg;
+          return ratio >= 0.2 && ratio <= 3.0;
+        })
         .map((la) => ({
           quote_analysis_id: result.id,
           service_type: result.extraction.service_type,

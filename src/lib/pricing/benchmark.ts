@@ -27,7 +27,10 @@ async function getAIPricingEstimate(
   extraction: QuoteExtraction,
   quoteId: string
 ): Promise<{ regional_low: number; regional_average: number; regional_high: number; notes: string }> {
-  const systemPrompt = `You are an expert in service pricing for auto repair and home services. Provide realistic regional pricing estimates based on market data.
+  const systemPrompt = `You are an expert in service pricing for auto repair and home services. Provide realistic US market pricing estimates based on national averages and regional cost-of-living adjustments.
+
+CRITICAL: Base your estimates on typical market rates — do NOT anchor to the submitted quote price. Your job is to provide an independent benchmark, not to validate what was charged.
+
 Respond with JSON only: { "regional_low": number, "regional_average": number, "regional_high": number, "notes": "string" }`;
 
   const vehicleDetails = extraction.vehicle_info
@@ -35,15 +38,15 @@ Respond with JSON only: { "regional_low": number, "regional_average": number, "r
     : null;
   const propertyDetails = extraction.property_info?.details || null;
 
-  const userPrompt = `Provide typical pricing for this service:
+  const userPrompt = `What is the typical fair market price for this service?
 Service type: ${serviceType}
 Service: ${item.normalized_name.replace(/_/g, ' ')}
-Location: ${zipCode}
+Location ZIP: ${zipCode}
 ${vehicleDetails ? `Vehicle: ${vehicleDetails}` : ''}
 ${propertyDetails ? `Property: ${propertyDetails}` : ''}
 Quantity: ${item.quantity}
 
-Return regional pricing ranges (low, average, high) in USD for this specific service.`;
+Return what a fair shop typically charges (low / average / high range) in USD. Base this on national averages adjusted for local cost of living — not on any submitted price.`;
 
   try {
     const result = await openAITextCall(systemPrompt, userPrompt, quoteId, 'pricing_estimation');
@@ -55,13 +58,12 @@ Return regional pricing ranges (low, average, high) in USD for this specific ser
       if (jsonMatch) return JSON.parse(jsonMatch[0]);
     } catch {}
 
-    // Fallback: estimate based on quoted price
-    const price = item.line_total;
+    // Fallback: mark as unavailable rather than anchoring to quoted price
     return {
-      regional_low: price * 0.75,
-      regional_average: price * 0.9,
-      regional_high: price * 1.25,
-      notes: 'Estimated - unable to retrieve market data',
+      regional_low: 0,
+      regional_average: 0,
+      regional_high: 0,
+      notes: 'Market data unavailable - pricing not benchmarked',
     };
   }
 }
