@@ -3,6 +3,7 @@ import { supabaseAdmin } from './supabase';
 
 // Cost per token estimates (USD)
 const COST_PER_TOKEN: Record<string, { input: number; output: number }> = {
+  'gemini-2.0-flash': { input: 0.0000001, output: 0.0000004 },
   'gemini-2.5-flash': { input: 0.000000075, output: 0.0000003 },
   'claude-haiku-4-5-20251001': { input: 0.00000025, output: 0.00000125 },
   'claude-sonnet-4-6': { input: 0.000003, output: 0.000015 },

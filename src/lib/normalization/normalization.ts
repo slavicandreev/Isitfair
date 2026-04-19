@@ -28,22 +28,6 @@ async function lookupNormalization(
   }
 }
 
-async function cacheNormalization(
-  rawDescription: string,
-  normalizedName: string,
-  serviceType: ServiceType
-): Promise<void> {
-  try {
-    await supabaseAdmin.from('normalization_mappings').upsert({
-      raw_description: rawDescription,
-      normalized_name: normalizedName,
-      service_type: serviceType,
-    });
-  } catch {
-    // Non-critical, just log
-    console.error('Failed to cache normalization mapping');
-  }
-}
 
 async function batchNormalizeWithAI(
   descriptions: string[],
@@ -122,13 +106,20 @@ export async function normalizeServices(
     const descriptions = itemsToNormalize.map(({ item }) => item.description);
     const normalizedNames = await batchNormalizeWithAI(descriptions, extraction.service_type, quoteId);
 
+    const cacheRows: Array<{ raw_description: string; normalized_name: string; service_type: ServiceType }> = [];
+
     for (let i = 0; i < itemsToNormalize.length; i++) {
       const { item, index } = itemsToNormalize[i];
       const normalizedName = normalizedNames[i] || item.description.toLowerCase().replace(/\s+/g, '_');
       results[index] = buildNormalizedItem(item, normalizedName);
+      cacheRows.push({ raw_description: item.description, normalized_name: normalizedName, service_type: extraction.service_type });
+    }
 
-      // Cache for future use
-      await cacheNormalization(item.description, normalizedName, extraction.service_type);
+    // Batch cache write — single upsert instead of one per item
+    try {
+      await supabaseAdmin.from('normalization_mappings').upsert(cacheRows);
+    } catch {
+      console.error('Failed to batch cache normalization mappings');
     }
   }
 

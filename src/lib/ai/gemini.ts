@@ -2,6 +2,9 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { ProcessedImage, QuoteExtraction, ServiceType } from '@/types';
 import { calculateConfidenceScore } from '../confidence';
 import { logAICall, estimateCost } from '../cost-tracker';
+import { parseJSONFromText, validateExtraction } from './parse-json';
+
+const GEMINI_MODEL = 'gemini-2.0-flash';
 
 let _genAI: GoogleGenerativeAI | null = null;
 
@@ -51,7 +54,7 @@ export async function extractWithGemini(
   quoteId: string = 'unknown'
 ): Promise<QuoteExtraction> {
   const startTime = Date.now();
-  const model = getGenAI().getGenerativeModel({ model: 'gemini-2.0-flash' });
+  const model = getGenAI().getGenerativeModel({ model: GEMINI_MODEL });
 
   const prompt = serviceTypeHint && serviceTypeHint !== 'other'
     ? `${EXTRACTION_SYSTEM_PROMPT}\n\nNote: The user has indicated this is a ${serviceTypeHint.replace('_', ' ')} quote.`
@@ -70,13 +73,9 @@ export async function extractWithGemini(
 
   const latency = Date.now() - startTime;
 
-  // Extract JSON from response
-  const jsonMatch = text.match(/\{[\s\S]*\}/);
-  if (!jsonMatch) {
-    throw new Error('Gemini returned non-JSON response');
-  }
-
-  const parsed = JSON.parse(jsonMatch[0]) as Partial<QuoteExtraction>;
+  const raw = parseJSONFromText(text);
+  validateExtraction(raw);
+  const parsed = raw as Partial<QuoteExtraction>;
   const confidence_score = calculateConfidenceScore(parsed);
 
   const extraction: QuoteExtraction = {
@@ -92,7 +91,7 @@ export async function extractWithGemini(
     warranty_info: parsed.warranty_info || null,
     confidence_notes: parsed.confidence_notes || [],
     confidence_score,
-    model_used: 'gemini-2.0-flash',
+    model_used: GEMINI_MODEL,
   };
 
   // Log AI call
@@ -101,11 +100,11 @@ export async function extractWithGemini(
   const outputTokens = usageMetadata?.candidatesTokenCount || 200;
 
   await logAICall({
-    model: 'gemini-2.0-flash',
+    model: GEMINI_MODEL,
     provider: 'gemini',
     input_tokens: inputTokens,
     output_tokens: outputTokens,
-    estimated_cost_usd: estimateCost('gemini-2.5-flash', inputTokens, outputTokens),
+    estimated_cost_usd: estimateCost(GEMINI_MODEL, inputTokens, outputTokens),
     latency_ms: latency,
     timestamp: new Date().toISOString(),
     quote_id: quoteId,

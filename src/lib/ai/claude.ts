@@ -2,6 +2,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import { ProcessedImage, QuoteExtraction, ServiceType } from '@/types';
 import { calculateConfidenceScore } from '../confidence';
 import { logAICall, estimateCost } from '../cost-tracker';
+import { parseJSONFromText, validateExtraction } from './parse-json';
 
 let _anthropic: Anthropic | null = null;
 
@@ -87,12 +88,9 @@ export async function extractWithClaude(
   const textContent = response.content.find((c) => c.type === 'text');
   const text = textContent && textContent.type === 'text' ? textContent.text : '';
 
-  const jsonMatch = text.match(/\{[\s\S]*\}/);
-  if (!jsonMatch) {
-    throw new Error('Claude returned non-JSON response');
-  }
-
-  const parsed = JSON.parse(jsonMatch[0]) as Partial<QuoteExtraction>;
+  const raw = parseJSONFromText(text);
+  validateExtraction(raw);
+  const parsed = raw as Partial<QuoteExtraction>;
   const confidence_score = calculateConfidenceScore(parsed);
 
   const extraction: QuoteExtraction = {
