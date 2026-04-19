@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS quote_analyses (
   image_url TEXT,
   extracted_data JSONB,
   benchmark_results JSONB,
+  full_result JSONB,           -- full AnalysisResult for retrieval
   overall_score INTEGER,
   total_quoted NUMERIC(10,2),
   total_fair_estimate NUMERIC(10,2),

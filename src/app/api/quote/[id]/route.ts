@@ -22,7 +22,11 @@ export async function GET(
       return NextResponse.json({ error: 'Quote not found' }, { status: 404 });
     }
 
-    return NextResponse.json(data);
+    if (!data.full_result) {
+      return NextResponse.json({ error: 'Quote result not available' }, { status: 404 });
+    }
+
+    return NextResponse.json(data.full_result);
   } catch (error) {
     console.error('Error fetching quote:', error);
     return NextResponse.json({ error: 'Failed to retrieve quote' }, { status: 500 });

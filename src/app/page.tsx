@@ -83,6 +83,7 @@ export default function HomePage() {
       }
 
       const result = await response.json();
+      sessionStorage.setItem(`result_${result.id}`, JSON.stringify(result));
       router.push(`/results/${result.id}`);
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Something went wrong. Please try again.';

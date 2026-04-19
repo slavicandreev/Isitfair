@@ -89,10 +89,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate file type
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/heic', 'image/heif', 'application/pdf'];
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/heic', 'image/heif', 'image/webp'];
     if (!allowedTypes.includes(imageFile.type)) {
       return NextResponse.json(
-        { error: 'Unsupported file type. Please upload a JPEG, PNG, HEIC, or PDF.' },
+        { error: 'Unsupported file type. Please upload a JPEG, PNG, HEIC, or WebP image.' },
         { status: 400 }
       );
     }
@@ -150,6 +150,7 @@ export async function POST(request: NextRequest) {
         shop_zip: zipCode,
         extracted_data: result.extraction,
         benchmark_results: result.line_item_analyses,
+        full_result: result,
         overall_score: result.overall_verdict.deal_score,
         total_quoted: result.overall_verdict.total_quoted,
         total_fair_estimate: result.overall_verdict.estimated_fair_range.low,

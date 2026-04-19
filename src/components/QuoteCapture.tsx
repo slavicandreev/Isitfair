@@ -6,7 +6,7 @@ interface QuoteCaptureProps {
   onCapture: (file: File) => void;
 }
 
-const ACCEPTED_TYPES = 'image/jpeg,image/png,image/heic,image/heif,application/pdf';
+const ACCEPTED_TYPES = 'image/jpeg,image/png,image/heic,image/heif,image/webp';
 const MAX_SIZE_MB = 10;
 
 export default function QuoteCapture({ onCapture }: QuoteCaptureProps) {
@@ -22,8 +22,8 @@ export default function QuoteCapture({ onCapture }: QuoteCaptureProps) {
       return;
     }
 
-    const allowed = ['image/jpeg', 'image/png', 'image/heic', 'image/heif', 'application/pdf'];
-    if (!allowed.includes(file.type) && !file.name.match(/\.(jpg|jpeg|png|heic|heif|pdf)$/i)) {
+    const allowed = ['image/jpeg', 'image/png', 'image/heic', 'image/heif', 'image/webp'];
+    if (!allowed.includes(file.type) && !file.name.match(/\.(jpg|jpeg|png|heic|heif|webp)$/i)) {
       setError('Please upload a JPEG, PNG, HEIC, or PDF file');
       return;
     }

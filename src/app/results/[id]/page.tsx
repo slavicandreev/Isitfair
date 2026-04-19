@@ -90,7 +90,9 @@ export default function ResultsPage() {
           </button>
           <div className="text-xs text-gray-400">
             {extraction.shop_name && <span>{extraction.shop_name} · </span>}
-            {new Date().toLocaleDateString()}
+            {extraction.quote_date
+              ? new Date(extraction.quote_date).toLocaleDateString()
+              : new Date().toLocaleDateString()}
           </div>
         </div>
 
